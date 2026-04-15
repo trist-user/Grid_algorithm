@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algotihm Demonstration</title>
+    <script src="./script.js" defer></script>
+</head>
+<body>
+    <h1>
+        Algorithms & Grids!!!!
+    </h1>
+    <label id="algorithm">which algorithm do you want?</label>
+    <select name="algorithm" id="algType">
+        <option value="BFS">BFS</option>
+        <option value="A*">A*</option>
+    </select>
+
+    <div id="grid">
+
+    </div>
+
+      <p id="specs">
+        <strong>Customize grid size:</strong> <br>
+        Grid width: <input id="GridX" type="text" placeholder="EX: 2"> <br>
+        Start length: <input id="GridY" type="text" placeholder="EX: 3"> <br>
+        <strong>Choose Start and Goal positions:</strong> <br>
+        Start x coord: <input id="StartX" type="text" placeholder="EX: 2"> <br>
+        Start y coord: <input id="StartY" type="text" placeholder="EX: 3"> <br>
+        Goal x coord: <input id="GoalX" type="text" placeholder="EX: 4"> <br>
+        Goal y coord: <input id="GoalY" type="text" placeholder="EX: 5"> <br>
+    </p>
+
+    <p id="gridKey">
+        <strong>Key of grid color meanings:</strong> <br>
+        green = Start position <br>
+        red = Goal position <br>
+        cyan = Checked by algorithm <br> 
+        <em>(idc what color it technically "erm actually *pushes up glasses" is. Deal with it) </em><br>
+        blue = Path that algorithm chose to reach goal <br>
+        purple = Wall to hinder algroithm (click on grid to add more or get rid of walls) <br>
+    </p>
+</body>
+</html>
