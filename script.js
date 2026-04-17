@@ -1,3 +1,33 @@
+let gridX = document.getElementById("GridX")
+let gridY = document.getElementById("GridY")
+let startX = document.getElementById("StartX")
+let startY = document.getElementById("StartY")
+let goalX = document.getElementById("GoalX")
+let goalY = document.getElementById("GoalY")
+
+let gridSpecs = []
+let startSpecs = []
+let goalSpecs = []
+gridX.addEventListener("change", (fucntion) =>{
+    gridSpecs.push(gridX.value)
+})
+gridY.addEventListener("change", (fucntion) =>{
+    gridSpecs.push(gridY.value)
+})
+startX.addEventListener("change", (fucntion) =>{
+    startSpecs.push(startX.value)
+})
+startY.addEventListener("change", (fucntion) =>{
+    startSpecs.push(startY.value)
+})
+goalX.addEventListener("change", (fucntion) =>{
+    goalSpecs.push(goalX.value)
+})
+goalY.addEventListener("change", (fucntion) =>{
+    goalSpecs.push(goalY.value)
+})
+
+
 
 class Grid{
     constructor(xLength,yLength){
@@ -8,19 +38,20 @@ class Grid{
 
     createGrid(){
         let gridTable = document.createElement("table") 
+        gridTable.id = "elbat"
         this.gridTable = gridTable
         gridTable.innerHTML = "dhdhdh"
         this.section.appendChild(gridTable);
         for(let i=0; i<=this.xLength-1; i++){
             let gridRow = document.createElement("tr")
             this.gridRow = gridRow
-            gridRow.id = i
+            gridRow.id = "x" + i
             gridRow.innerHTML = i 
             gridTable.appendChild(gridRow)
             for(let j=0; j<=this.yLength-1; j++){
                 let gridColl = document.createElement("td")
                 this.gridColl = gridColl
-                gridColl.id = j
+                gridColl.id = "y" + j
                 gridColl.innerHTML = j 
                 gridRow.appendChild(gridColl)
             }
@@ -36,15 +67,11 @@ class GridSquare extends Grid{
         this.squareType = squareType
         this.coordX = coordX
         this.coordY = coordY
-        this.section = document.getElementById("grid")
+        this.table = document.getElementById("elbat")
+        this.targSquare = this.table.rows[this.coordX].cells[this.coordY]
     }
-    locateSquare(){
-        let squareX = this.section.gridTable.getElementById("" +this.coordX)
-        let squareY = squareX.getElementById("" +this.coordY)
-        let targSquare = this.targetGrid.gridTable.squareX.squareY
-        return targSquare, squareX, squareY
-    }
+
 }
 
-y = 11232
-console.log("" + y) 
+e = new Grid(gridSpecs[0],gridSpecs[1])
+
