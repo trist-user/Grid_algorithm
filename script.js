@@ -8,23 +8,56 @@ let goalY = document.getElementById("GoalY")
 let gridSpecs = []
 let startSpecs = []
 let goalSpecs = []
-gridX.addEventListener("change", (fucntion) =>{
-    gridSpecs.push(gridX.value)
+gridX.addEventListener("change", () =>{
+    if(gridSpecs.length == 0){
+        gridSpecs.push(gridX.value)
+    }else if(gridSpecs.length > 1){
+        gridSpecs[0] = gridX.value
+        e = new Grid(gridSpecs[0],gridSpecs[1])
+        e.createGrid()
+    }
 })
-gridY.addEventListener("change", (fucntion) =>{
-    gridSpecs.push(gridY.value)
+gridY.addEventListener("change", () =>{
+    if(gridSpecs.length == 1){
+        gridSpecs.push(gridY.value)
+    }else if(gridSpecs.length > 1){
+        gridSpecs[1] = gridY.value
+        e = new Grid(gridSpecs[0],gridSpecs[1])
+        e.createGrid()
+    }
 })
-startX.addEventListener("change", (fucntion) =>{
-    startSpecs.push(startX.value)
+startX.addEventListener("change", () =>{
+    if(startSpecs.length == 0){
+        startSpecs.push(startX.value)
+    }else if(startSpecs.length > 0){
+        startSpecs[0] = startX.value
+
+        // stuff too make color of grid at specific coordinat change.
+    }
 })
-startY.addEventListener("change", (fucntion) =>{
-    startSpecs.push(startY.value)
+startY.addEventListener("change", () =>{
+    if(startSpecs.length == 1){
+        startSpecs.push(startY.value)
+    }else if(startSpecs.length > 2){
+        startSpecs[0] = startY.value
+        // stuff too make color of grid at specific coordinat change.
+    }
 })
-goalX.addEventListener("change", (fucntion) =>{
-    goalSpecs.push(goalX.value)
+goalX.addEventListener("change", () =>{
+    if(goalSpecs.length == 0){
+        goalSpecs.push(goalX.value)
+    }else if(goalSpecs.length > 0){
+        goalSpecs[0] = goalX.value
+        // stuff too make color of grid at specific coordinat change.
+    }
 })
-goalY.addEventListener("change", (fucntion) =>{
-    goalSpecs.push(goalY.value)
+goalY.addEventListener("change", () =>{
+    if(goalSpecs.length == 1){
+        goalSpecs.push(goalY.value)
+    }else if(goalSpecs.length > 2){
+        goalSpecs[0] = goalY.value
+        // stuff too make color of grid at specific coordinat change.
+    }
 })
 
 
@@ -45,7 +78,7 @@ class Grid{
         for(let i=0; i<=this.xLength-1; i++){
             let gridRow = document.createElement("tr")
             this.gridRow = gridRow
-            gridRow.id = "x" + i
+            gridRow.id = "x" + i 
             gridRow.innerHTML = i 
             gridTable.appendChild(gridRow)
             for(let j=0; j<=this.yLength-1; j++){
@@ -56,7 +89,10 @@ class Grid{
                 gridRow.appendChild(gridColl)
             }
         }
-
+    }
+    removeGrid(){
+        let removee = this.section.children[0]
+        this.section.remove(removee)
     }
 }
 
@@ -73,5 +109,5 @@ class GridSquare extends Grid{
 
 }
 
-e = new Grid(gridSpecs[0],gridSpecs[1])
+
 
