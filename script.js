@@ -14,16 +14,23 @@ gridX.addEventListener("change", () =>{
     }else if(gridSpecs.length > 1){
         gridSpecs[0] = gridX.value
         e = new Grid(gridSpecs[0],gridSpecs[1])
+        e.removeGrid()
         e.createGrid()
     }
 })
 gridY.addEventListener("change", () =>{
     if(gridSpecs.length == 1){
-        gridSpecs.push(gridY.value)
+        gridSpecs.push(gridY.value) 
     }else if(gridSpecs.length > 1){
-        gridSpecs[1] = gridY.value
-        e = new Grid(gridSpecs[0],gridSpecs[1])
-        e.createGrid()
+        try{
+           gridSpecs[1] = gridY.value
+            e = new Grid(gridSpecs[0],gridSpecs[1])
+            e.removeGrid()
+            e.createGrid() 
+        }
+        catch(error){
+            console.log("intentional error, placing the .removeGrid here makes sure that every time a grid is created it kills the last one. In short if this code works you shouldn't see this again")
+        }
     }
 })
 startX.addEventListener("change", () =>{
@@ -91,8 +98,8 @@ class Grid{
         }
     }
     removeGrid(){
-        let removee = this.section.children[0]
-        this.section.remove(removee)
+        let removee = document.getElementById("elbat")
+        removee.remove()
     }
 }
 
