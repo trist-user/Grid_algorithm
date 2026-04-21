@@ -13,8 +13,10 @@ gridX.addEventListener("change", () =>{
         gridSpecs.push(gridX.value)
     }else if(gridSpecs.length > 1){
         gridSpecs[0] = gridX.value
+        if(typeof e !== 'undefined'){
+                e.removeGrid()
+            }
         e = new Grid(gridSpecs[0],gridSpecs[1])
-        e.removeGrid()
         e.createGrid()
     }
 })
@@ -22,38 +24,36 @@ gridY.addEventListener("change", () =>{
     if(gridSpecs.length == 1){
         gridSpecs.push(gridY.value) 
     }else if(gridSpecs.length > 1){
-        try{
            gridSpecs[1] = gridY.value
-            e = new Grid(gridSpecs[0],gridSpecs[1])
-            e.removeGrid()
-            e.createGrid() 
+           if(typeof e !== 'undefined'){
+                e.removeGrid()
+           }
+           e = new Grid(gridSpecs[0],gridSpecs[1])
+           e.createGrid() 
         }
-        catch(error){
-            console.log("intentional error, placing the .removeGrid here makes sure that every time a grid is created it kills the last one. In short if this code works you shouldn't see this again")
-        }
-    }
-})
+    })
 startX.addEventListener("change", () =>{
     if(startSpecs.length == 0){
         startSpecs.push(startX.value)
-    }else if(startSpecs.length > 0){
+    }else if(startSpecs.length > 1){
         startSpecs[0] = startX.value
-
+        f = new GridSquare(e,"filler",startX.value,startY.value,e.xLength,e.yLength)
+        f.targSquare.style.backgroundColor = "green"
         // stuff too make color of grid at specific coordinat change.
     }
 })
 startY.addEventListener("change", () =>{
     if(startSpecs.length == 1){
         startSpecs.push(startY.value)
-    }else if(startSpecs.length > 2){
-        startSpecs[0] = startY.value
+    }else if(startSpecs.length > 1){
+        startSpecs[1] = startY.value
         // stuff too make color of grid at specific coordinat change.
     }
 })
 goalX.addEventListener("change", () =>{
     if(goalSpecs.length == 0){
         goalSpecs.push(goalX.value)
-    }else if(goalSpecs.length > 0){
+    }else if(goalSpecs.length > 1){
         goalSpecs[0] = goalX.value
         // stuff too make color of grid at specific coordinat change.
     }
@@ -61,8 +61,8 @@ goalX.addEventListener("change", () =>{
 goalY.addEventListener("change", () =>{
     if(goalSpecs.length == 1){
         goalSpecs.push(goalY.value)
-    }else if(goalSpecs.length > 2){
-        goalSpecs[0] = goalY.value
+    }else if(goalSpecs.length > 1){
+        goalSpecs[1] = goalY.value
         // stuff too make color of grid at specific coordinat change.
     }
 })
@@ -80,13 +80,11 @@ class Grid{
         let gridTable = document.createElement("table") 
         gridTable.id = "elbat"
         this.gridTable = gridTable
-        gridTable.innerHTML = "dhdhdh"
         this.section.appendChild(gridTable);
         for(let i=0; i<=this.xLength-1; i++){
             let gridRow = document.createElement("tr")
             this.gridRow = gridRow
             gridRow.id = "x" + i 
-            gridRow.innerHTML = i 
             gridTable.appendChild(gridRow)
             for(let j=0; j<=this.yLength-1; j++){
                 let gridColl = document.createElement("td")
@@ -110,8 +108,12 @@ class GridSquare extends Grid{
         this.squareType = squareType
         this.coordX = coordX
         this.coordY = coordY
+        this.id = 1
         this.table = document.getElementById("elbat")
-        this.targSquare = this.table.rows[this.coordX].cells[this.coordY]
+        this.targSquare = this.table.rows[this.coordX].cells[this.coordY] // this broken but syntax work in console
+    }
+    cellChanging(type){
+        this.squareType
     }
 
 }

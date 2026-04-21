@@ -1,0 +1,14 @@
+p{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: blue;
+}
+table{
+    border-collapse: collapse;
+}
+table,th,td{
+    color:blueviolet;
+    border:1px solid black;
+}
+td{
+    padding:20px
+}
