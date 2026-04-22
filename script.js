@@ -37,8 +37,8 @@ startX.addEventListener("change", () =>{
         startSpecs.push(startX.value)
     }else if(startSpecs.length > 1){
         startSpecs[0] = startX.value
+        f.cellChanging("start")
         f = new GridSquare(e,"filler",startX.value,startY.value,e.xLength,e.yLength)
-        f.targSquare.style.backgroundColor = "green"
         // stuff too make color of grid at specific coordinat change.
     }
 })
@@ -47,6 +47,8 @@ startY.addEventListener("change", () =>{
         startSpecs.push(startY.value)
     }else if(startSpecs.length > 1){
         startSpecs[1] = startY.value
+        f.cellChanging("start")
+        f = new GridSquare(e,"filler",startX.value,startY.value,e.xLength,e.yLength)
         // stuff too make color of grid at specific coordinat change.
     }
 })
@@ -55,6 +57,8 @@ goalX.addEventListener("change", () =>{
         goalSpecs.push(goalX.value)
     }else if(goalSpecs.length > 1){
         goalSpecs[0] = goalX.value
+        f.cellChanging("goal")
+        f = new GridSquare(e,"filler",startX.value,startY.value,e.xLength,e.yLength)
         // stuff too make color of grid at specific coordinat change.
     }
 })
@@ -63,6 +67,8 @@ goalY.addEventListener("change", () =>{
         goalSpecs.push(goalY.value)
     }else if(goalSpecs.length > 1){
         goalSpecs[1] = goalY.value
+        f.cellChanging("goal")
+        f = new GridSquare(e,"filler",startX.value,startY.value,e.xLength,e.yLength)
         // stuff too make color of grid at specific coordinat change.
     }
 })
@@ -113,7 +119,19 @@ class GridSquare extends Grid{
         this.targSquare = this.table.rows[this.coordX].cells[this.coordY] // this broken but syntax work in console
     }
     cellChanging(type){
-        this.squareType
+        switch(type){
+            case "start":
+                f.targSquare.style.backgroundColor = "green"
+            case "goal":
+                f.targSquare.style.backgroundColor = "red"
+            case "checked":
+                f.targSquare.style.backgroundColor = "cyan"
+            case "chosenPath":
+                f.targSquare.style.backgroundColor = "blue"
+            case "wall":
+                f.targSquare.style.backgroundColor = "purple"
+        }
+
     }
 
 }
