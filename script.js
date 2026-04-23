@@ -169,3 +169,21 @@ class GridSquare extends Grid{
 }
 
 
+// each squares chil;dren are just its coordinates
+// chidlren of (x,y) => (x+1,y), (x,y+1), (x-1,y), (x,y-1)
+function bfs(start, goal, gridLen, gridWid){
+    queue = [start]
+    while(queue.length > 0){
+        curSquare = queue[0]
+        if(curSquare[0]+1 <= gridWid && curSquare[0]-1 >=gridWid ){
+            childrenCur = [[curSquare[0]+1, curSquare[1]],[curSquare[0]-1, curSquare[1]]]
+            if(curSquare[1]+1 <= gridLen && curSquare[1]-1 >=gridLen ){
+              childrenCur = [[curSquare[0], curSquare[1]+1],[curSquare[0], curSquare[1]-1]]  
+            }
+        }
+        if(curSquare == goal){
+            break;
+        }
+
+    }
+}
