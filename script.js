@@ -4,6 +4,7 @@ let startX = document.getElementById("StartX")
 let startY = document.getElementById("StartY")
 let goalX = document.getElementById("GoalX")
 let goalY = document.getElementById("GoalY")
+let squares = document.getElementsByTagName("td")
 
 let gridSpecs = []
 let startSpecs = []
@@ -32,13 +33,18 @@ gridY.addEventListener("change", () =>{
            e.createGrid() 
         }
     })
+    k = 0
 startX.addEventListener("change", () =>{
     if(startSpecs.length == 0){
         startSpecs.push(startX.value)
     }else if(startSpecs.length > 1){
+        if(k >= 1){
+            f.cellChanging("blank", f)
+        }
         startSpecs[0] = startX.value
-        f.cellChanging("start")
+        k++
         f = new GridSquare(e,"filler",startX.value,startY.value,e.xLength,e.yLength)
+        f.cellChanging("start", f)
         // stuff too make color of grid at specific coordinat change.
     }
 })
@@ -46,19 +52,28 @@ startY.addEventListener("change", () =>{
     if(startSpecs.length == 1){
         startSpecs.push(startY.value)
     }else if(startSpecs.length > 1){
+        if(k >= 1){
+            f.cellChanging("blank", f)
+        }
         startSpecs[1] = startY.value
-        f.cellChanging("start")
+        k++
         f = new GridSquare(e,"filler",startX.value,startY.value,e.xLength,e.yLength)
+        f.cellChanging("start", f)
         // stuff too make color of grid at specific coordinat change.
     }
 })
+l = 0
 goalX.addEventListener("change", () =>{
     if(goalSpecs.length == 0){
         goalSpecs.push(goalX.value)
     }else if(goalSpecs.length > 1){
+        if(l >= 1){
+            g.cellChanging("blank", g)
+        }
         goalSpecs[0] = goalX.value
-        f.cellChanging("goal")
-        f = new GridSquare(e,"filler",startX.value,startY.value,e.xLength,e.yLength)
+        l++
+        g = new GridSquare(e,"filler",goalX.value,goalY.value,e.xLength,e.yLength)
+        g.cellChanging("goal", g)
         // stuff too make color of grid at specific coordinat change.
     }
 })
@@ -66,14 +81,23 @@ goalY.addEventListener("change", () =>{
     if(goalSpecs.length == 1){
         goalSpecs.push(goalY.value)
     }else if(goalSpecs.length > 1){
+        if(l >= 1){
+            g.cellChanging("blank", g)
+        }
         goalSpecs[1] = goalY.value
-        f.cellChanging("goal")
-        f = new GridSquare(e,"filler",startX.value,startY.value,e.xLength,e.yLength)
+        l++
+        g = new GridSquare(e,"filler",goalX.value,goalY.value,e.xLength,e.yLength)
+        g.cellChanging("goal", g)
         // stuff too make color of grid at specific coordinat change.
     }
 })
 
-
+if(typeof e !== 'undefined'){
+    table = document.getElementById("elbat")
+    table.addEventListener("click", function(event){
+        console.log(event.target)
+    })
+}
 
 class Grid{
     constructor(xLength,yLength){
@@ -118,23 +142,30 @@ class GridSquare extends Grid{
         this.table = document.getElementById("elbat")
         this.targSquare = this.table.rows[this.coordX].cells[this.coordY] // this broken but syntax work in console
     }
-    cellChanging(type){
+    cellChanging(type, targ){
         switch(type){
             case "start":
-                f.targSquare.style.backgroundColor = "green"
+                targ.targSquare.style.backgroundColor = "green"
+                break;
             case "goal":
-                f.targSquare.style.backgroundColor = "red"
+                targ.targSquare.style.backgroundColor = "red"
+                break;
             case "checked":
-                f.targSquare.style.backgroundColor = "cyan"
+                targ.targSquare.style.backgroundColor = "cyan"
+                break;
             case "chosenPath":
-                f.targSquare.style.backgroundColor = "blue"
+                targ.targSquare.style.backgroundColor = "blue"
+                break;
             case "wall":
-                f.targSquare.style.backgroundColor = "purple"
+                targ.targSquare.style.backgroundColor = "purple"
+                break;
+            case "blank":
+                targ.targSquare.style.backgroundColor = "white"
+                break;
         }
 
     }
 
 }
-
 
 
