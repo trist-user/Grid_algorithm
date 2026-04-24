@@ -9,6 +9,9 @@ let squares = document.getElementsByTagName("td")
 let gridSpecs = []
 let startSpecs = []
 let goalSpecs = []
+let newGridSpecs = []
+let newStartSpecs =[]
+let newGoalSpecs = []
 gridX.addEventListener("change", () =>{
     if(gridSpecs.length == 0){
         gridSpecs.push(gridX.value)
@@ -19,7 +22,7 @@ gridX.addEventListener("change", () =>{
             }
         e = new Grid(gridSpecs[0],gridSpecs[1])
         e.createGrid()
-        let newGridSpecs = [parseInt(gridSpecs[0], 10), parseInt(gridSpecs[1],10)]
+        newGridSpecs = [parseInt(gridSpecs[0], 10), parseInt(gridSpecs[1],10)]
     }
 })
 gridY.addEventListener("change", () =>{
@@ -32,7 +35,7 @@ gridY.addEventListener("change", () =>{
            }
            e = new Grid(gridSpecs[0],gridSpecs[1])
            e.createGrid() 
-           let newGridSpecs = [parseInt(gridSpecs[0], 10), parseInt(gridSpecs[1],10)]
+           newGridSpecs = [parseInt(gridSpecs[0], 10), parseInt(gridSpecs[1],10)]
         }
     })
     k = 0
@@ -47,7 +50,7 @@ startX.addEventListener("change", () =>{
         k++
         f = new GridSquare(e,"filler",startX.value,startY.value,e.xLength,e.yLength)
         f.cellChanging("start", f)
-        let newStartSpecs = [parseInt(startSpecs[0], 10), parseInt(startSpecs[1],10)]
+        newStartSpecs = [parseInt(startSpecs[0], 10), parseInt(startSpecs[1],10)]
     }
 })
 startY.addEventListener("change", () =>{
@@ -61,7 +64,7 @@ startY.addEventListener("change", () =>{
         k++
         f = new GridSquare(e,"filler",startX.value,startY.value,e.xLength,e.yLength)
         f.cellChanging("start", f)
-        let newStartSpecs = [parseInt(startSpecs[0], 10), parseInt(startSpecs[1],10)]
+        newStartSpecs = [parseInt(startSpecs[0], 10), parseInt(startSpecs[1],10)]
     }
 })
 l = 0
@@ -76,7 +79,7 @@ goalX.addEventListener("change", () =>{
         l++
         g = new GridSquare(e,"filler",goalX.value,goalY.value,e.xLength,e.yLength)
         g.cellChanging("goal", g)
-        let newGoalSpecs = [parseInt(goalSpecs[0], 10), parseInt(goalSpecs[1],10)]
+        newGoalSpecs = [parseInt(goalSpecs[0], 10), parseInt(goalSpecs[1],10)]
     }
 })
 goalY.addEventListener("change", () =>{
@@ -90,7 +93,7 @@ goalY.addEventListener("change", () =>{
         l++
         g = new GridSquare(e,"filler",goalX.value,goalY.value,e.xLength,e.yLength)
         g.cellChanging("goal", g)
-        let newGoalSpecs = [parseInt(goalSpecs[0], 10), parseInt(goalSpecs[1],10)]
+        newGoalSpecs = [parseInt(goalSpecs[0], 10), parseInt(goalSpecs[1],10)]
     }
 })
 
@@ -174,32 +177,36 @@ class GridSquare extends Grid{
 // each squares chil;dren are just its coordinates
 // chidlren of (x,y) => (x+1,y), (x,y+1), (x-1,y), (x,y-1)
 function bfs(start, goal, gridWid, gridLen){ //just realized in my grid making and square locating that my x defines my y and visa versa
-    while(queue.length > 0){
-    queue = [start]                          // so im just swapping their order here so that the logic down yonder is more readable 
+    queue = [start]
+    while(queue.length > 0){                          // so im just swapping their order here so that the logic down yonder is more readable 
         curSquare = queue[0]
         childrenCur = []
-        if(curSquare == goal){
-            break;
+        if(curSquare[0] == goal[0]){
+            if(curSquare[1] == goal[1]){
+                break;
+            }
         }
-        if(curSquare[0]+1 <= gridLen ){ // so im just swapping their order here so that the logic down yonder is more readable
+        if(curSquare[0]+1 < gridLen ){ // so im just swapping their order here so that the logic down yonder is more readable
             childrenCur.push([curSquare[0]+1, curSquare[1]])
         }
-        if(curSquare[0]-1 >=gridLen){
+        if(curSquare[0]-1 >= 0){
             childrenCur.push([curSquare[0]-1, curSquare[1]])
         }
-        if(curSquare[1]+1 <= gridWid ){
+        if(curSquare[1]+1 < gridWid ){
           childrenCur.push([curSquare[0], curSquare[1]+1])  
         }
-        if(curSquare[1]-1 >=gridWid){
+        if(curSquare[1]-1 > 0){
             childrenCur.push([curSquare[0], curSquare[1]-1])
         }
-        for(let m = 0; m <= childrenCur; m++ ){
+        for(let m = 0; m < childrenCur.length; m++ ){
             queue.push(childrenCur[m])
         }
-            let squareChecked = queue.shift(0,1)
-            if(squareChecked !== start){
-                h = new GridSquare(e,"checked",curSquare[0],curSquare[1],gridWid, gridLen)
-                h.cellChanging(this.squareType,h)
-            }
+        childrenCur=[]
+        let squareChecked = queue.shift(0,1)
+        
+         h = new GridSquare(e,"checked",curSquare[0],curSquare[1],gridWid, gridLen)
+        h.cellChanging("checked", h)
+        console.log("looping")
     }
+    f.cellChanging("start", f)
 }
